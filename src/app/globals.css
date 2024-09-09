@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#__next {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  padding: 2px 0; /* Minimal padding for ultra-compact footer */
+  background-color: #2d2d2d;
+  text-align: center;
+  font-size: 0.6rem; /* Smaller font size */
+  line-height: 0.8rem; /* Tighter line spacing */
+}
+
+footer h4,
+footer p,
+footer a {
+  margin: 0; /* Remove margin */
+  padding: 0; /* Remove padding */
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the start */
+  flex-wrap: wrap;
+}
+
+footer .container div {
+  flex: 1;
+  min-width: 100px; /* Smaller minimum width */
+}
+
+footer .border-t {
+  margin-top: 4px; /* Smaller margin-top */
+  padding-top: 1px; /* Smaller padding-top */
+  font-size: 0.6rem; /* Consistent font size */
+}
