@@ -30,7 +30,7 @@ export const HandleLogin = async (
       // Redirect based on user type
       switch (user_type) {
         case "Admin":
-          router.push("/admin");
+          router.push("/admin/home");
           break;
         case "Manager":
           router.push("/manager");

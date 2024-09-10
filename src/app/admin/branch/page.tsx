@@ -5,8 +5,16 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { baseUrl } from "@/app/utils";
 import { handleErrors } from "@/app/utils/handleErrors";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
-const BranchCreationModal = ({ onClose }: { onClose: () => void }) => {
+interface BranchCreationModalProps {
+  onClose: () => void;
+}
+
+const BranchCreationModal: React.FC<BranchCreationModalProps> = ({
+  onClose,
+}) => {
+  // const BranchCreationModal = ({ onClose }: { onClose: () => void }) => {
   const [branchName, setBranchName] = useState("");
   const [branchLocation, setBranchLocation] = useState("");
 
@@ -93,4 +101,4 @@ const BranchCreationModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export default BranchCreationModal;
+export default withAuth(BranchCreationModal);
