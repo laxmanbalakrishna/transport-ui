@@ -24,7 +24,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white p-4 space-y-6">
+      <aside className="w-64 bg-gray-800 text-white p-4 space-y-6 ">
         <h2 className="text-2xl font-bold text-center mb-6">Admin Dashboard</h2>
         <div>
           <button
@@ -63,6 +63,14 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             </li>
             <li>
               <Link
+                href="/admin/manage-branches"
+                className="block p-2 hover:bg-gray-700 rounded-md"
+              >
+                Manage Branches
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/admin/reports"
                 className="block p-2 hover:bg-gray-700 rounded-md"
               >
@@ -90,7 +98,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-gray-100 p-8">{children}</main>
+      <main className="flex-1 bg-gray-100 p-8 ">{children}</main>
     </div>
   );
 };

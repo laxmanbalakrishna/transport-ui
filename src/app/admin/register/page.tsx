@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { handleErrors } from "@/app/utils/handleErrors";
 import BranchCreationModal from "@/app/admin/branch/page";
 import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_ROOT_URL || "";
 
 const RegistrationForm = () => {
@@ -42,6 +43,14 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form data:", {
+      email,
+      username,
+      password,
+      user_type: userType,
+      branch,
+      salary_details: parseFloat(salaryDetails),
+    });
     try {
       const token = localStorage.getItem("token");
       await axios.post(
@@ -61,7 +70,7 @@ const RegistrationForm = () => {
         }
       );
       toast.success("Registration successful");
-      router.push("/admin");
+      router.push("/admin/home");
     } catch (error) {
       handleErrors(error);
     }
@@ -190,6 +199,7 @@ const RegistrationForm = () => {
               id="salaryDetails"
               value={salaryDetails}
               onChange={(e) => setSalaryDetails(e.target.value)}
+              required
               className="mt-1 p-2 w-full border border-blue-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
@@ -207,4 +217,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default withAuth(RegistrationForm);

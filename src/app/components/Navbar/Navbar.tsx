@@ -1,45 +1,5 @@
-// import Image from "next/image";
-// import Link from "next/link";
-
-// export default function NavBar() {
-//   return (
-//     <nav className="bg-gray-800 p-4 flex justify-between items-center">
-//       <div className="flex items-center space-x-4">
-//         <Image
-//           src="/Logo.jpg"
-//           height={50}
-//           width={100}
-//           alt="Transport Main Logo"
-//           quality={100}
-//           unoptimized
-//         />
-//         <Link
-//           href="/"
-//           className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400 text-xl font-bold tracking-wide"
-//         >
-//           B Transport Company
-//           <br />
-//           <span className="text-sm font-light text-pink-300  block relative ml-10">
-//             ...Service That Matters
-//           </span>
-//         </Link>
-//       </div>
-//       <div className="space-x-8">
-//         <Link href="/about" className="text-white hover:text-gray-400">
-//           About
-//         </Link>
-//         <Link href="/contact" className="text-white hover:text-gray-400">
-//           Contact Us
-//         </Link>
-//         <Link href="/login" className="text-white hover:text-gray-400">
-//           Login
-//         </Link>
-//       </div>
-//     </nav>
-//   );
-// }
-
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -167,6 +127,12 @@ export default function NavBar() {
                     className="block px-4 py-2 hover:bg-gray-100 text-black"
                   >
                     Profile
+                  </Link>
+                  <Link
+                    href={`/admin/home`}
+                    className="block px-4 py-2 hover:bg-gray-100 text-black"
+                  >
+                    Go To HomePage
                   </Link>
                   <button
                     onClick={handleLogout}
