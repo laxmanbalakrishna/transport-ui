@@ -150,6 +150,7 @@ const RegistrationForm = () => {
               className="mt-1 p-2 w-full border border-blue-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Select user type</option>
+              <option value="Manager">Admin</option>
               <option value="Manager">Manager</option>
               <option value="Normal User">Normal User</option>
             </select>

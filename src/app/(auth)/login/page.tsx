@@ -85,6 +85,27 @@ const Page = () => {
             {loading ? "Logging In..." : "Log In"}
           </button>
         </form>
+        <div className="flex justify-between items-center mb-6">
+          {/* Add OTP-based login link */}
+          <div className="text-left mt-4">
+            <button
+              onClick={() => router.push("/otplogin/otp-login")}
+              className="text-blue-600 underline"
+            >
+              Login with OTP
+            </button>
+          </div>
+
+          {/* Add Forgot Password link */}
+          <div className="text-right mt-4">
+            <button
+              onClick={() => router.push("/forgot-password")}
+              className="text-blue-600 underline"
+            >
+              Forgot Password
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
