@@ -58,9 +58,22 @@ export const HandleLogin = async (
 // Handle user logout
 export const HandleLogout = async (router: any) => {
   try {
+    const token = localStorage.getItem("token");
+    const userType = localStorage.getItem("user_type");
+
+    if (!token || !userType) {
+      throw new Error("User type or token not found");
+    }
+
+    // Determine the API endpoint based on user type
+    const endpoint =
+      userType === "Installed User"
+        ? `${baseUrl}/installations/logout/`
+        : `${baseUrl}/logout/`;
+
     // Perform logout API call if needed
     await axios.post(
-      `${baseUrl}/logout/`,
+      endpoint,
       {},
       {
         headers: {

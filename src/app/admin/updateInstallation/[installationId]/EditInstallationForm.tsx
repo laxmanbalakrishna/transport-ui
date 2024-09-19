@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { baseUrl } from "@/app/utils";
 import { handleErrors } from "@/app/utils/handleErrors";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 interface Branch {
   id: number;
@@ -133,6 +135,15 @@ const EditInstallationForm = ({
     }
   };
 
+  const handlePhoneChange = (phone: string) => {
+    if (installation) {
+      setInstallation({
+        ...installation,
+        contact_number: phone,
+      });
+    }
+  };
+
   const handleBranchChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedBranch = branches.find(
       (branch) => branch.id === parseInt(e.target.value)
@@ -176,16 +187,21 @@ const EditInstallationForm = ({
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Contact Number:
+          <label className="block text-gray-700 font-semibold mb-2">
+            Contact Number
           </label>
-          <input
-            type="text"
-            name="contact_number"
+          <PhoneInput
+            country={"us"}
             value={installation.contact_number}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
+            onChange={handlePhoneChange}
+            inputProps={{
+              name: "contact_number",
+              required: true,
+              autoFocus: false,
+            }}
+            enableSearch={true} // Optional: Enables search in the dropdown
+            containerClass="w-full"
+            inputClass="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="mb-4">

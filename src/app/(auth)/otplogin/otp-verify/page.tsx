@@ -42,6 +42,9 @@ const OtpVerifyPage = () => {
         localStorage.setItem("user_type", user_type); // Save user type
         localStorage.setItem("username", username); // Save username
 
+        // Dispatch a custom event to notify NavBar about login state change
+        window.dispatchEvent(new Event("login"));
+
         toast.success("OTP verified successfully!");
 
         // Redirect based on user type

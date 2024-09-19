@@ -3,7 +3,7 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
-import EditInstallationForm from "@/app/components/EditInstalltionForm/EditInstallationForm";
+import EditInstallationForm from "./EditInstallationForm";
 
 const EditInstallationPage = () => {
   const { installationId } = useParams();

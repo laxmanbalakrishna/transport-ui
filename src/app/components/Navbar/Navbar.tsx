@@ -31,9 +31,13 @@ export default function NavBar() {
     // Listen to changes in localStorage (for login and logout actions)
     window.addEventListener("storage", updateLoginState);
 
+    // Listen for the custom "login" event and update login state immediately
+    window.addEventListener("login", updateLoginState);
+
     // Cleanup the event listener on unmount
     return () => {
       window.removeEventListener("storage", updateLoginState);
+      window.removeEventListener("login", updateLoginState);
     };
   }, []);
 

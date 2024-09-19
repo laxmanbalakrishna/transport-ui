@@ -127,6 +127,14 @@ const HomePage = () => {
             },
           }
         );
+        // Update the installations state by filtering out the deleted installation
+        setInstallations(
+          installations.filter(
+            (installation) => installation.id !== installationId
+          )
+        );
+        // Update the count of installations
+        setCount(count - 1);
         toast.success("Installation deleted successfully");
         // Reload the installations list or remove the deleted item from state
         router.push("/admin/home");
@@ -269,17 +277,25 @@ const HomePage = () => {
                     <td className="border-b p-2">
                       {(currentPage - 1) * recordsPerPage + index + 1}
                     </td>
-                    <td className="border-b p-2">{installation.owner_name}</td>
                     <td className="border-b p-2">
-                      {installation.contact_number}
+                      <span className="ml-2">{installation.owner_name}</span>
                     </td>
                     <td className="border-b p-2">
-                      {installation.vehicle_class}
+                      <span className="ml-2">
+                        {installation.contact_number}
+                      </span>
                     </td>
                     <td className="border-b p-2">
-                      {installation.registration_number}
+                      <span className="ml-6">{installation.vehicle_class}</span>
                     </td>
-                    <td className="border-b p-2">{installation.branch.name}</td>
+                    <td className="border-b p-2">
+                      <span className="ml-6">
+                        {installation.registration_number}
+                      </span>
+                    </td>
+                    <td className="border-b p-2">
+                      <span className="ml-6">{installation.branch.name}</span>
+                    </td>
                     <td className="border-b p-2">
                       <div className="flex space-x-4">
                         <button

@@ -1,25 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { baseUrl } from "@/app/utils";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import PhoneInput from "react-phone-input-2";
+import toast from "react-hot-toast";
 
 const OtpLoginPage = () => {
   const [contactNumber, setContactNumber] = useState("");
+  const [userType, setUserType] = useState("Installed User"); // Default user type
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSendOtp = async (e: { preventDefault: () => void }) => {
+  const handleSendOtp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Trim any extra spaces
-    const trimmedContactNumber = contactNumber.trim();
-
-    // Check if the contact number is valid before proceeding
-    if (!trimmedContactNumber || trimmedContactNumber.length < 10) {
+    if (!contactNumber || contactNumber.length < 10) {
       toast.error("Please enter a valid phone number.");
       return;
     }
@@ -27,19 +22,13 @@ const OtpLoginPage = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${baseUrl}/user/send-otp/`, {
-        contact_number: `+${trimmedContactNumber}`,
-      });
+      // Redirect to the appropriate OTP send page based on userType
+      const otpSendUrl = `/otpLoginPage/otpSend?user_type=${encodeURIComponent(
+        userType
+      )}&contact_number=${encodeURIComponent(contactNumber)}`;
 
-      if (response.status === 200) {
-        toast.success("OTP sent successfully!");
-        router.push(
-          `/otplogin/otp-verify?contact_number=${encodeURIComponent(
-            trimmedContactNumber
-          )}`
-        ); // Redirect to OTP verification form
-      }
-    } catch (error: any) {
+      router.push(otpSendUrl);
+    } catch (error) {
       toast.error("Failed to send OTP. Please try again.");
     } finally {
       setLoading(false);
@@ -56,30 +45,40 @@ const OtpLoginPage = () => {
         <form onSubmit={handleSendOtp} className="space-y-6">
           <div>
             <label
+              htmlFor="userType"
+              className="block text-sm font-medium text-gray-700"
+            >
+              User Type
+            </label>
+            <select
+              id="userType"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              className="mt-1 p-2 w-full border border-blue-400 rounded-md"
+            >
+              <option value="Installed User">Installed User</option>
+              <option value="Admin">Admin</option>
+              <option value="Manager">Manager</option>
+            </select>
+          </div>
+
+          <div>
+            <label
               htmlFor="contactNumber"
               className="block text-sm font-medium text-gray-700"
             >
               Contact Number
             </label>
-            {/* <input
-              type="text"
-              id="contactNumber"
-              value={contactNumber}
-              onChange={(e) => setContactNumber(e.target.value)}
-              required
-              className="mt-1 p-2 w-full border border-blue-400 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter your contact number"
-            /> */}
             <PhoneInput
-              country={"us"} // Default country
+              country={"us"}
               value={contactNumber}
-              onChange={(phone) => setContactNumber(phone)} // Update contact number
+              onChange={(phone) => setContactNumber(phone)}
               inputProps={{
                 name: "contact_number",
                 required: true,
                 autoFocus: false,
               }}
-              enableSearch={true} // Optional: Enables search in the dropdown
+              enableSearch={true}
               containerClass="w-full"
               inputClass="mt-1 p-2 w-full border border-blue-400 rounded-md focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your contact number"

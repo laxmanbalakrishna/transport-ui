@@ -7,12 +7,15 @@ import { handleErrors } from "@/app/utils/handleErrors";
 import BranchCreationModal from "@/app/admin/branch/page";
 import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
 import withAuth from "@/app/components/WithAuth/WithAuth";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_ROOT_URL || "";
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
   const [userType, setUserType] = useState("");
   const [branch, setBranch] = useState("");
   const [salaryDetails, setSalaryDetails] = useState("");
@@ -43,10 +46,17 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Ensure contact number is prefixed with '+'
+    const formattedContactNumber = contactNumber.startsWith("+")
+      ? contactNumber
+      : `+${contactNumber}`;
+
     console.log("Form data:", {
       email,
       username,
       password,
+      contact_number: formattedContactNumber,
       user_type: userType,
       branch,
       salary_details: parseFloat(salaryDetails),
@@ -59,9 +69,10 @@ const RegistrationForm = () => {
           email,
           username,
           password,
+          contact_number: formattedContactNumber,
           user_type: userType,
           branch,
-          salary_details: salaryDetails,
+          salary_details: parseFloat(salaryDetails),
         },
         {
           headers: {
@@ -135,6 +146,25 @@ const RegistrationForm = () => {
             />
           </div>
 
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-blue-600">
+              Contact Number
+            </label>
+            <PhoneInput
+              country={"us"} // Default country
+              value={contactNumber}
+              onChange={(phone) => setContactNumber(phone)} // Update contact number
+              inputProps={{
+                name: "contact_number",
+                required: true,
+                autoFocus: false,
+              }}
+              enableSearch={true} // Optional: Enables search in the dropdown
+              containerClass="w-full"
+              inputClass="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
           <div>
             <label
               htmlFor="userType"
@@ -150,44 +180,45 @@ const RegistrationForm = () => {
               className="mt-1 p-2 w-full border border-blue-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Select user type</option>
-              <option value="Manager">Admin</option>
+              <option value="Admin">Admin</option>
               <option value="Manager">Manager</option>
               <option value="Normal User">Normal User</option>
             </select>
           </div>
 
-          <div>
-            <label
-              htmlFor="branch"
-              className="block text-sm font-medium text-blue-600"
-            >
-              Branch
-            </label>
-            <div className="flex items-center space-x-2">
-              <select
-                id="branch"
-                value={branch}
-                onChange={(e) => setBranch(e.target.value)}
-                required
-                className="mt-1 p-2 w-full border border-blue-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          {userType !== "Admin" && (
+            <div>
+              <label
+                htmlFor="branch"
+                className="block text-sm font-medium text-blue-600"
               >
-                <option value="">Select branch</option>
-                {branches.map(({ id, name }) => (
-                  <option key={id} value={id}>
-                    {id} - {name}
-                  </option>
-                ))}
-              </select>
-              <button
-                type="button"
-                onClick={openModal}
-                className="p-2 bg-blue-600 text-white rounded-md"
-              >
-                Create New Branch
-              </button>
+                Branch
+              </label>
+              <div className="flex items-center space-x-2">
+                <select
+                  id="branch"
+                  value={branch}
+                  onChange={(e) => setBranch(e.target.value)}
+                  required
+                  className="mt-1 p-2 w-full border border-blue-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="">Select branch</option>
+                  {branches.map(({ id, name }) => (
+                    <option key={id} value={id}>
+                      {id} - {name}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="p-2 bg-blue-600 text-white rounded-md"
+                >
+                  Create New Branch
+                </button>
+              </div>
             </div>
-          </div>
-
+          )}
           <div>
             <label
               htmlFor="salaryDetails"

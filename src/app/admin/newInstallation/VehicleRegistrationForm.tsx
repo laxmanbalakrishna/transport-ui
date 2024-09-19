@@ -59,9 +59,11 @@ const VehicleRegistrationForm: React.FC = () => {
   };
 
   const handlePhoneChange = (value: string) => {
+    // Ensure contact number is prefixed with '+'
+    const formattedContactNumber = value.startsWith("+") ? value : `+${value}`;
     setFormData((prevState) => ({
       ...prevState,
-      contact_number: value,
+      contact_number: formattedContactNumber,
     }));
   };
 
@@ -69,11 +71,20 @@ const VehicleRegistrationForm: React.FC = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     axios
-      .post(`${baseUrl}/installations/create/`, formData, {
-        headers: {
-          Authorization: `Token ${token}`,
+      .post(
+        `${baseUrl}/installations/create/`,
+        {
+          ...formData,
+          contact_number: formData.contact_number.startsWith("+")
+            ? formData.contact_number
+            : `+${formData.contact_number}`,
         },
-      })
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      )
       .then((response) => {
         toast.success("New Vehicle Registration successful");
         console.log("Vehicle registered successfully:", response.data);
@@ -133,6 +144,7 @@ const VehicleRegistrationForm: React.FC = () => {
               required: true,
               autoFocus: false,
             }}
+            enableSearch={true} // Optional: Enables search in the dropdown
             containerClass="w-full"
             inputClass="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />

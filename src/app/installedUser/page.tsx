@@ -1,11 +1,11 @@
 import React from "react";
 
-function page({ params }: any) {
+const page = () => {
   return (
     <div>
-      <h2>This is Product number {params.id}</h2>
+      <h1>This is Installed User Page</h1>
     </div>
   );
-}
+};
 
 export default page;

@@ -89,7 +89,8 @@ const Page = () => {
           {/* Add OTP-based login link */}
           <div className="text-left mt-4">
             <button
-              onClick={() => router.push("/otplogin/otp-login")}
+              // onClick={() => router.push("/otplogin/otp-login")}
+              onClick={() => router.push("/otpLoginPage")}
               className="text-blue-600 underline"
             >
               Login with OTP

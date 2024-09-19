@@ -1,6 +1,6 @@
 import React from "react";
 
-const Manager = () => {
+const page = () => {
   return (
     <div>
       <h2>This is Manager page</h2>
@@ -8,4 +8,4 @@ const Manager = () => {
   );
 };
 
-export default Manager;
+export default page;
