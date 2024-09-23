@@ -105,6 +105,7 @@ const RegistrationForm = () => {
             <input
               type="email"
               id="email"
+              placeholder="Enter Email "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -122,6 +123,7 @@ const RegistrationForm = () => {
             <input
               type="text"
               id="username"
+              placeholder="Enter UserName"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -139,6 +141,7 @@ const RegistrationForm = () => {
             <input
               type="password"
               id="password"
+              placeholder="Enter Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -229,6 +232,7 @@ const RegistrationForm = () => {
             <input
               type="text"
               id="salaryDetails"
+              placeholder="Enter Salary Details"
               value={salaryDetails}
               onChange={(e) => setSalaryDetails(e.target.value)}
               required

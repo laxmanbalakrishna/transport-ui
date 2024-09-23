@@ -112,6 +112,7 @@ const VehicleRegistrationForm: React.FC = () => {
           <input
             type="text"
             name="owner_name"
+            placeholder="Enter Owner Name"
             value={formData.owner_name}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -138,6 +139,7 @@ const VehicleRegistrationForm: React.FC = () => {
           <PhoneInput
             country={"us"}
             value={formData.contact_number}
+            placeholder="Enter Contact Number"
             onChange={handlePhoneChange}
             inputProps={{
               name: "contact_number",
@@ -173,6 +175,7 @@ const VehicleRegistrationForm: React.FC = () => {
           <input
             type="text"
             name="registration_number"
+            placeholder="Enter Registration Number"
             value={formData.registration_number}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -186,6 +189,7 @@ const VehicleRegistrationForm: React.FC = () => {
           <input
             type="text"
             name="insurance_details"
+            placeholder="Enter Insurance Details"
             value={formData.insurance_details}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"

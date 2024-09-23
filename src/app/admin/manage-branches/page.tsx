@@ -283,6 +283,7 @@ const BranchManagementPage = () => {
               <input
                 type="text"
                 value={name}
+                placeholder="Enter Branch Name"
                 onChange={(e) => setName(e.target.value)}
                 className="p-2 border rounded w-full"
               />
@@ -292,6 +293,7 @@ const BranchManagementPage = () => {
               <input
                 type="text"
                 value={location}
+                placeholder="Enter Branch Location"
                 onChange={(e) => setLocation(e.target.value)}
                 className="p-2 border rounded w-full"
               />

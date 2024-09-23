@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ export default function NavBar() {
   const [userType, setUserType] = useState("");
   const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For dropdown visibility
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown
   const router = useRouter();
 
   // Function to update login state from localStorage
@@ -34,10 +35,23 @@ export default function NavBar() {
     // Listen for the custom "login" event and update login state immediately
     window.addEventListener("login", updateLoginState);
 
+    const handleClickOutside = (event: MouseEvent) => {
+      // Type the event parameter
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false); // Close the dropdown if click is outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
     // Cleanup the event listener on unmount
     return () => {
       window.removeEventListener("storage", updateLoginState);
       window.removeEventListener("login", updateLoginState);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -92,7 +106,7 @@ export default function NavBar() {
             Login
           </Link>
         ) : (
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               onClick={toggleDropdown}
               className="flex items-center text-white hover:text-gray-400 focus:outline-none"
@@ -128,7 +142,9 @@ export default function NavBar() {
                 <div className="p-2">
                   <button
                     onClick={() =>
-                      router.push(`/${userType.toLowerCase()}/dashboard`)
+                      router.push(
+                        `/${userType.toLowerCase()}/profile-dashboard`
+                      )
                     }
                     className="block w-full px-4 py-2 text-left hover:bg-gray-100 text-black"
                   >
