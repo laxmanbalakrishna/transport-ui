@@ -151,6 +151,18 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             </li>
             <li>
               <Link
+                href="/admin/contact-attempts"
+                className={`block p-2 rounded-md ${
+                  isActive("/admin/contact-attempts")
+                    ? "bg-teal-500"
+                    : "hover:bg-gray-700"
+                }`}
+              >
+                ContactedAttemptsList
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/admin/settings"
                 className={`block p-2 rounded-md ${
                   isActive("/admin/settings")

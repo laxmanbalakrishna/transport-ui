@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { HandleLogout } from "@/app/utils/authUtils";
+import Notifications from "@/app/admin/Notifications/page";
 
 export default function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -101,6 +102,12 @@ export default function NavBar() {
         <Link href="/contact" className="text-white hover:text-gray-400">
           Contact Us
         </Link>
+
+        {/* Notification Bell Icon */}
+        {isLoggedIn && (
+          <Notifications token={localStorage.getItem("token")} /> // Use the Notifications component here
+        )}
+
         {!isLoggedIn ? (
           <Link href="/login" className="text-white hover:text-gray-400">
             Login
