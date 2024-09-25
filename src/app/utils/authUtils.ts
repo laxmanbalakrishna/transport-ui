@@ -33,7 +33,7 @@ export const HandleLogin = async (
           router.push("/admin/home");
           break;
         case "Manager":
-          router.push("/manager");
+          router.push("/manager/home");
           break;
         case "Normal User":
           router.push("/user");

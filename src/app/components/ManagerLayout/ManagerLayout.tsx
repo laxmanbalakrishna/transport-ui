@@ -5,7 +5,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import BranchCreationModal from "@/app/admin/branch/page";
 import withAuth from "../WithAuth/WithAuth";
 import { HandleLogout } from "@/app/utils/authUtils";
 import {
@@ -19,21 +18,14 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+const ManagerLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
 
   // State to track login status
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(null);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   // Check login status and fetch the username from local storage
   const checkAuthStatus = () => {
@@ -92,37 +84,20 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="min-h-screen flex">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-800 text-white p-4 space-y-6 ">
-        <h2 className="text-2xl font-bold text-center mb-6">Admin Dashboard</h2>
-        <div>
-          <button
-            onClick={openModal}
-            className="p-2 bg-blue-600 text-white rounded-md flex items-center space-x-2"
-          >
-            <MdOutlineCreateNewFolder size={20} />
-            <span> Create New Branch</span>
-          </button>
-          {/* {isModalOpen && <BranchCreationModal onClose={closeModal} />} */}
-          {isModalOpen && (
-            <>
-              {/* Overlay to cover background content */}
-              <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-
-              {/* Modal */}
-              <div className="fixed inset-0 flex items-center justify-center z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
-                  <BranchCreationModal onClose={closeModal} />
-                </div>
-              </div>
-            </>
-          )}
+        <div className="px-4">
+          <h2 className="text-2xl font-bold text-center mb-6">
+            <span>Manager Dashboard</span>
+          </h2>
         </div>
         <nav>
           <ul className="space-y-4">
             <li>
               <Link
-                href="/admin/home"
+                href="/manager/home"
                 className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/admin/home") ? "bg-teal-500" : "hover:bg-gray-700"
+                  isActive("/manager/home")
+                    ? "bg-teal-500"
+                    : "hover:bg-gray-700"
                 }`}
               >
                 <FaHome size={20} />
@@ -131,48 +106,22 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             </li>
             <li>
               <Link
-                href="/admin/register"
+                href="/manager/compare-branches"
                 className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/admin/register")
-                    ? "bg-teal-500"
-                    : "hover:bg-gray-700"
-                }`}
-              >
-                <FaUserPlus size={20} />
-                <span>Register Users</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/admin/manage-users"
-                className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/admin/manage-users")
-                    ? "bg-teal-500"
-                    : "hover:bg-gray-700"
-                }`}
-              >
-                <FaUsers size={20} />
-                <span>Manage Users</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/admin/manage-branches"
-                className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/admin/manage-branches")
+                  isActive("/manager/compare-branches")
                     ? "bg-teal-500"
                     : "hover:bg-gray-700"
                 }`}
               >
                 <FaBuilding size={20} />
-                <span>Manage Branches</span>
+                <span>Compare Branches</span>
               </Link>
             </li>
             <li>
               <Link
-                href="/admin/reports"
+                href="/manager/reports"
                 className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/admin/reports")
+                  isActive("/manager/reports")
                     ? "bg-teal-500"
                     : "hover:bg-gray-700"
                 }`}
@@ -183,22 +132,22 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             </li>
             <li>
               <Link
-                href="/admin/contact-attempts"
+                href="/manager/contact-admin"
                 className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/admin/contact-attempts")
+                  isActive("/manager/contact-admin")
                     ? "bg-teal-500"
                     : "hover:bg-gray-700"
                 }`}
               >
                 <FaEnvelope size={20} />
-                <span>ContactedAttemptsList</span>
+                <span>Contact-Admin</span>
               </Link>
             </li>
             <li>
               <Link
-                href="/admin/settings"
+                href="/manager/settings"
                 className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/admin/settings")
+                  isActive("/manager/settings")
                     ? "bg-teal-500"
                     : "hover:bg-gray-700"
                 }`}
@@ -226,4 +175,4 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default withAuth(AdminLayout);
+export default withAuth(ManagerLayout);

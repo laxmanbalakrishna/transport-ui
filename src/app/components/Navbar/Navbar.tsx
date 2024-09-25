@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { HandleLogout } from "@/app/utils/authUtils";
 import Notifications from "@/app/admin/Notifications/page";
+import { FaUser, FaHome, FaSignOutAlt } from "react-icons/fa";
 
 export default function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -153,23 +154,26 @@ export default function NavBar() {
                         `/${userType.toLowerCase()}/profile-dashboard`
                       )
                     }
-                    className="block w-full px-4 py-2 text-left hover:bg-gray-100 text-black"
+                    className="flex items-center w-full px-4 py-2 text-left hover:bg-teal-100 text-gray-800 transition-colors duration-200"
                   >
-                    Profile
+                    <FaUser className="mr-2 text-teal-600" />
+                    <span>Profile</span>
                   </button>
                   <button
                     onClick={() =>
                       router.push(`/${userType.toLowerCase()}/home`)
                     }
-                    className="block w-full px-4 py-2 text-left hover:bg-gray-100 text-black"
+                    className="flex items-center w-full px-4 py-2 text-left hover:bg-teal-100 text-gray-800 transition-colors duration-200"
                   >
-                    Go To HomePage
+                    <FaHome className="mr-2 text-teal-600" />
+                    <span>Go To HomePage</span>
                   </button>
                   <button
                     onClick={handleLogout}
-                    className="block w-full px-4 py-2 text-left hover:bg-gray-100 text-black"
+                    className="flex items-center w-full px-4 py-2 text-left hover:bg-teal-100 text-gray-800 transition-colors duration-200"
                   >
-                    Logout
+                    <FaSignOutAlt className="mr-2 text-red-600" />
+                    <span className="text-red-600">Logout</span>
                   </button>
                 </div>
               </div>
