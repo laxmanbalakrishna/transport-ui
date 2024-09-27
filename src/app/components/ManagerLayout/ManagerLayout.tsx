@@ -175,4 +175,4 @@ const ManagerLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default withAuth(ManagerLayout);
+export default withAuth(ManagerLayout, ["manager"]);

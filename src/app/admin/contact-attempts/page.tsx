@@ -8,6 +8,7 @@ import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
 import { baseUrl } from "@/app/utils";
 import toast from "react-hot-toast";
 import { handleErrors } from "@/app/utils/handleErrors";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 interface ContactAttempt {
   admin: string;
@@ -215,4 +216,4 @@ const ContactAttempts = () => {
   );
 };
 
-export default ContactAttempts;
+export default withAuth(ContactAttempts, ["admin"]);

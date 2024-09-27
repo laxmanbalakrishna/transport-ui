@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { baseUrl } from "@/app/utils";
-import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
 import ProfileEditModal from "./ProfileEditModal";
+import ManagerLayout from "@/app/components/ManagerLayout/ManagerLayout";
 import withAuth from "@/app/components/WithAuth/WithAuth";
 
 interface ProfileData {
@@ -86,7 +86,7 @@ const ProfileDashboardPage = () => {
   };
 
   return (
-    <AdminLayout>
+    <ManagerLayout>
       <div className="flex flex-col items-center py-10 bg-gray-100 min-h-screen">
         <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-3xl font-semibold text-blue-600 mb-6 text-center">
@@ -139,8 +139,8 @@ const ProfileDashboardPage = () => {
           )}
         </div>
       </div>
-    </AdminLayout>
+    </ManagerLayout>
   );
 };
 
-export default withAuth(ProfileDashboardPage, ["admin"]);
+export default withAuth(ProfileDashboardPage, ["manager"]);

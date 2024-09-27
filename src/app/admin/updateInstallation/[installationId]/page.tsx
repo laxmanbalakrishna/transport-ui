@@ -4,6 +4,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
 import EditInstallationForm from "./EditInstallationForm";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 const EditInstallationPage = () => {
   const { installationId } = useParams();
@@ -20,4 +21,4 @@ const EditInstallationPage = () => {
   );
 };
 
-export default EditInstallationPage;
+export default withAuth(EditInstallationPage, ["admin"]);

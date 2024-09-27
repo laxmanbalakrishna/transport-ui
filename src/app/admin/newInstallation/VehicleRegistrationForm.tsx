@@ -8,6 +8,7 @@ import { handleErrors } from "@/app/utils/handleErrors";
 import { useRouter } from "next/navigation";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 const VehicleRegistrationForm: React.FC = () => {
   const [branches, setBranches] = useState<{ id: number; name: string }[]>([]);
@@ -244,4 +245,4 @@ const VehicleRegistrationForm: React.FC = () => {
   );
 };
 
-export default VehicleRegistrationForm;
+export default withAuth(VehicleRegistrationForm, ["admin"]);

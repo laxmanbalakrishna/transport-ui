@@ -6,6 +6,7 @@ import { baseUrl } from "@/app/utils";
 import { handleErrors } from "@/app/utils/handleErrors";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 interface Branch {
   id: number;
@@ -36,7 +37,7 @@ const EditInstallationForm = ({
   const router = useRouter();
 
   useEffect(() => {
-    const fetchInstallationAndBranches = async () => {
+    const fetchInstallation = async () => {
       try {
         const token = localStorage.getItem("token");
 
@@ -76,16 +77,7 @@ const EditInstallationForm = ({
           toast.error("Unexpected data format for installations.");
         }
 
-        // // Fetch all branches for the dropdown
-        // const branchesResponse = await axios.get(`${baseUrl}/branches/`, {
-        //   headers: {
-        //     Authorization: `Token ${token}`,
-        //   },
-        // });
-
-        // console.log("Branches Response:", branchesResponse.data); // Debugging line
-        // setBranches(branchesResponse.data);
-        // setLoading(false);
+        setLoading(false);
       } catch (error) {
         console.error("Fetch error:", error); // Debugging line
         toast.error("Failed to fetch data.");
@@ -93,7 +85,7 @@ const EditInstallationForm = ({
       }
     };
 
-    fetchInstallationAndBranches();
+    fetchInstallation();
   }, [installationId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -117,7 +109,7 @@ const EditInstallationForm = ({
         }
       );
       toast.success("Installation updated successfully.");
-      router.push("/admin/home");
+      router.push("/manager/home");
     } catch (error) {
       handleErrors(error);
       toast.error("Failed to update installation.");
@@ -143,19 +135,6 @@ const EditInstallationForm = ({
       });
     }
   };
-
-  // const handleBranchChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedBranch = branches.find(
-  //     (branch) => branch.id === parseInt(e.target.value)
-  //   );
-
-  //   if (installation && selectedBranch) {
-  //     setInstallation({
-  //       ...installation,
-  //       branch: selectedBranch,
-  //     });
-  //   }
-  // };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -220,6 +199,7 @@ const EditInstallationForm = ({
             <option value="Bus">Bus</option>
           </select>
         </div>
+        {/* Registration Number (Non-editable and highlighted) */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             Registration Number:
@@ -228,8 +208,8 @@ const EditInstallationForm = ({
             type="text"
             name="registration_number"
             value={installation.registration_number}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            readOnly
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-600 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             required
           />
         </div>
@@ -263,22 +243,18 @@ const EditInstallationForm = ({
             <option value="Emergency">Emergency</option>
           </select>
         </div>
+
+        {/* Branch Name (Directly from Installation, Non-editable and highlighted) */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             Branch:
           </label>
           <input
+            type="text"
             value={installation.branch.name}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
-          >
-            {/* {branches.map((branch) => (
-              <option key={branch.id} value={branch.id}>
-                {branch.name}
-              </option>
-            ))} */}
-          </input>
+            readOnly
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-600 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          ></input>
         </div>
         <div className="flex space-x-4">
           <button
@@ -286,13 +262,13 @@ const EditInstallationForm = ({
             onClick={handleBack}
             className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
           >
-            Back
+            Cancel
           </button>
           <button
             type="submit"
             className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Update Installation
+            Save Changes
           </button>
         </div>
       </form>
@@ -300,4 +276,4 @@ const EditInstallationForm = ({
   );
 };
 
-export default EditInstallationForm;
+export default withAuth(EditInstallationForm, ["manager"]);

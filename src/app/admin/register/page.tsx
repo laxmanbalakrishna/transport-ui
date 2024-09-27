@@ -253,4 +253,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default withAuth(RegistrationForm);
+export default withAuth(RegistrationForm, ["admin"]);

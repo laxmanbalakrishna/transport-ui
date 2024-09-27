@@ -63,7 +63,7 @@ const OtpVerifyPage = () => {
             router.push("/admin/home");
             break;
           case "Manager":
-            router.push("/manager");
+            router.push("/manager/home");
             break;
           case "Installed User":
             router.push("/installedUser");

@@ -15,4 +15,4 @@ const NewInstallationPage: React.FC = () => {
   );
 };
 
-export default NewInstallationPage;
+export default withAuth(NewInstallationPage, ["admin"]);

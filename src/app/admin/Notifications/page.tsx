@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { baseUrl } from "@/app/utils";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 // Define Notification Interface
 interface Notification {

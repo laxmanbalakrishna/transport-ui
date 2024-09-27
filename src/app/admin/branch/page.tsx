@@ -101,4 +101,4 @@ const BranchCreationModal: React.FC<BranchCreationModalProps> = ({
   );
 };
 
-export default withAuth(BranchCreationModal);
+export default withAuth(BranchCreationModal, ["admin"]);

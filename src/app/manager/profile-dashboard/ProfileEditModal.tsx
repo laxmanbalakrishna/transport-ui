@@ -104,4 +104,4 @@ const ProfileEditModal: React.FC<EditProfileModalProps> = ({
   );
 };
 
-export default withAuth(ProfileEditModal, ["admin"]);
+export default withAuth(ProfileEditModal, ["manager"]);

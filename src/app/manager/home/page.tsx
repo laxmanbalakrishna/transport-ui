@@ -20,6 +20,7 @@ interface Installation {
   contact_number: string;
   vehicle_class: string;
   registration_number: string;
+  status: string;
   branch: Branch;
 }
 
@@ -36,7 +37,7 @@ const HomePage = () => {
     "owner_name"
   );
 
-  const recordsPerPage = 2;
+  const recordsPerPage = 4;
   const router = useRouter();
   const userName = localStorage.getItem("username");
 
@@ -228,6 +229,7 @@ const HomePage = () => {
                   <th className="border-b p-2">Vehicle Class</th>
                   <th className="border-b p-2">Registration Number</th>
                   <th className="border-b p-2">Branch</th>
+                  <th className="border-b p-2">Status</th>
                   <th className="border-b p-2">Actions</th>
                 </tr>
               </thead>
@@ -257,10 +259,38 @@ const HomePage = () => {
                       <span className="ml-6">{installation.branch.name}</span>
                     </td>
                     <td className="border-b p-2">
+                      <div className="flex items-center justify-center">
+                        <span
+                          className={`
+        inline-block px-2 py-1 text-white rounded-md text-center
+        ${installation.status === "Active" ? "bg-green-500" : ""}
+        ${installation.status === "Inactive" ? "bg-gray-400" : ""}
+        ${installation.status === "Emergency" ? "bg-red-500" : ""}
+        ${
+          installation.status === "Under Maintenance"
+            ? "bg-yellow-500 whitespace-normal" // Specific styling for "Under Maintenance"
+            : ""
+        }
+      `}
+                        >
+                          {installation.status === "Under Maintenance" ? (
+                            <>
+                              Under
+                              <br />
+                              Maintenance
+                            </>
+                          ) : (
+                            installation.status
+                          )}
+                        </span>
+                      </div>
+                    </td>
+
+                    <td className="border-b p-2">
                       <div className="flex space-x-4">
                         <button
                           onClick={() => handleEdit(installation.id)}
-                          className="p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                          className="p-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
                         >
                           Edit
                         </button>
@@ -299,4 +329,4 @@ const HomePage = () => {
   );
 };
 
-export default withAuth(HomePage);
+export default withAuth(HomePage, ["manager"]);

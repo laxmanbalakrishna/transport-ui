@@ -7,6 +7,7 @@ import { baseUrl } from "@/app/utils";
 import toast from "react-hot-toast";
 import { handleErrors } from "@/app/utils/handleErrors";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 const SettingsPage = () => {
   const [passwordForm, setPasswordForm] = useState({
@@ -148,4 +149,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default withAuth(SettingsPage, ["admin"]);

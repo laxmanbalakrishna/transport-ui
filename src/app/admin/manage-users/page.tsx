@@ -8,6 +8,7 @@ import { baseUrl } from "@/app/utils";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { handleErrors } from "@/app/utils/handleErrors";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 interface Manager {
   user: {
@@ -276,4 +277,4 @@ const ManagerPage = () => {
     </AdminLayout>
   );
 };
-export default ManagerPage;
+export default withAuth(ManagerPage, ["admin"]);

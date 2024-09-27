@@ -6,6 +6,7 @@ import { baseUrl } from "@/app/utils";
 import { handleErrors } from "@/app/utils/handleErrors";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 interface Branch {
   id: number;
@@ -300,4 +301,4 @@ const EditInstallationForm = ({
   );
 };
 
-export default EditInstallationForm;
+export default withAuth(EditInstallationForm, ["admin"]);

@@ -7,6 +7,7 @@ import { baseUrl } from "@/app/utils";
 import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
 import { useRouter } from "next/navigation";
 import { handleErrors } from "@/app/utils/handleErrors";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 interface Branch {
   id: number;
@@ -311,4 +312,4 @@ const BranchManagementPage = () => {
   );
 };
 
-export default BranchManagementPage;
+export default withAuth(BranchManagementPage, ["admin"]);

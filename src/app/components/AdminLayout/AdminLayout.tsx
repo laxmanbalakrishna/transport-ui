@@ -19,8 +19,6 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -226,4 +224,4 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default withAuth(AdminLayout);
+export default withAuth(AdminLayout, ["admin"]);

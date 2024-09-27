@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { handleErrors } from "@/app/utils/handleErrors";
 import toast from "react-hot-toast";
+import withAuth from "@/app/components/WithAuth/WithAuth";
 
 // Define the type for the manager prop (matching manage-users/page.tsx)
 interface Manager {
@@ -168,4 +169,4 @@ const EditManagerModal: React.FC<EditManagerModalProps> = ({
   );
 };
 
-export default EditManagerModal;
+export default withAuth(EditManagerModal, ["admin"]);
