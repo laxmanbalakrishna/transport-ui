@@ -7,20 +7,9 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import withAuth from "../WithAuth/WithAuth";
 import { HandleLogout } from "@/app/utils/authUtils";
-import {
-  FaHome,
-  FaUserPlus,
-  FaUsers,
-  FaBuilding,
-  FaChartBar,
-  FaEnvelope,
-  FaCog,
-  FaSignOutAlt,
-  FaPowerOff,
-} from "react-icons/fa";
-import { MdOutlineCreateNewFolder } from "react-icons/md";
+import { FaHome, FaCog, FaSignOutAlt, FaPowerOff } from "react-icons/fa";
 
-const ManagerLayout = ({ children }: { children: React.ReactNode }) => {
+const InstalledUserLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -87,16 +76,16 @@ const ManagerLayout = ({ children }: { children: React.ReactNode }) => {
       <aside className="w-64 bg-gray-800 text-white p-4 space-y-6 ">
         <div className="px-4">
           <h2 className="text-2xl font-bold text-center mb-6">
-            <span>Manager Dashboard</span>
+            <span>Installed User Dashboard</span>
           </h2>
         </div>
         <nav>
           <ul className="space-y-4">
             <li>
               <Link
-                href="/manager/home"
+                href="/installed-user/home"
                 className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/manager/home")
+                  isActive("/installed-user/home")
                     ? "bg-teal-500"
                     : "hover:bg-gray-700"
                 }`}
@@ -105,50 +94,12 @@ const ManagerLayout = ({ children }: { children: React.ReactNode }) => {
                 <span>Home</span>
               </Link>
             </li>
+
             <li>
               <Link
-                href="/manager/compare-branches"
+                href="/installed-user/settings"
                 className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/manager/compare-branches")
-                    ? "bg-teal-500"
-                    : "hover:bg-gray-700"
-                }`}
-              >
-                <FaBuilding size={20} />
-                <span>Compare Branches</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/manager/reports"
-                className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/manager/reports")
-                    ? "bg-teal-500"
-                    : "hover:bg-gray-700"
-                }`}
-              >
-                <FaChartBar size={20} />
-                <span>Reports</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/manager/contact-admin"
-                className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/manager/contact-admin")
-                    ? "bg-teal-500"
-                    : "hover:bg-gray-700"
-                }`}
-              >
-                <FaEnvelope size={20} />
-                <span>Contact-Admin</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/manager/settings"
-                className={`flex items-center space-x-2 p-2 rounded-md ${
-                  isActive("/manager/settings")
+                  isActive("/installed-user/settings")
                     ? "bg-teal-500"
                     : "hover:bg-gray-700"
                 }`}
@@ -176,4 +127,4 @@ const ManagerLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default withAuth(ManagerLayout, ["manager"]);
+export default withAuth(InstalledUserLayout, ["installed user"]);

@@ -53,7 +53,9 @@ const withAuth = <P extends object>(
             <div className="flex justify-center space-x-4">
               <button
                 onClick={() => {
-                  token ? router.push(`/${userRole}/home`) : router.push(`/`);
+                  const route =
+                    userRole === "installed user" ? "installed-user" : userRole;
+                  token ? router.push(`/${route}/home`) : router.push(`/`);
                 }}
                 className="px-6 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-all duration-300 ease-in-out"
               >

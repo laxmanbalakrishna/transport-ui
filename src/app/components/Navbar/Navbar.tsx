@@ -149,20 +149,30 @@ export default function NavBar() {
               <div className="absolute right-0 mt-2 bg-white text-black border border-gray-300 rounded-md shadow-lg z-50">
                 <div className="p-2">
                   <button
-                    onClick={() =>
-                      router.push(
-                        `/${userType.toLowerCase()}/profile-dashboard`
-                      )
-                    }
+                    onClick={() => {
+                      // router.push(
+                      //   `/${userType.toLowerCase()}/profile-dashboard`
+                      // )
+                      const route =
+                        userType === "Installed User"
+                          ? "installed-user"
+                          : userType.toLowerCase();
+                      router.push(`/${route}/profile-dashboard`);
+                    }}
                     className="flex items-center w-full px-4 py-2 text-left hover:bg-teal-100 text-gray-800 transition-colors duration-200"
                   >
                     <FaUser className="mr-2 text-teal-600" />
                     <span>Profile</span>
                   </button>
                   <button
-                    onClick={() =>
-                      router.push(`/${userType.toLowerCase()}/home`)
-                    }
+                    onClick={() => {
+                      // router.push(`/${userType.toLowerCase()}/home`)
+                      const route =
+                        userType === "Installed User"
+                          ? "installed-user"
+                          : userType.toLowerCase();
+                      router.push(`/${route}/home`);
+                    }}
                     className="flex items-center w-full px-4 py-2 text-left hover:bg-teal-100 text-gray-800 transition-colors duration-200"
                   >
                     <FaHome className="mr-2 text-teal-600" />

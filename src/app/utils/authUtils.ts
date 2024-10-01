@@ -35,8 +35,8 @@ export const HandleLogin = async (
         case "Manager":
           router.push("/manager/home");
           break;
-        case "Normal User":
-          router.push("/user");
+        case "Installed User":
+          router.push("/installed-user/home");
           break;
         default:
           router.push("/");

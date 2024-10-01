@@ -17,6 +17,7 @@ import {
   FaEnvelope,
   FaCog,
   FaSignOutAlt,
+  FaPowerOff,
 } from "react-icons/fa";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 
@@ -210,7 +211,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                 onClick={handleLogout}
                 className="flex items-center space-x-2 w-full text-left p-2 bg-red-600 rounded-md hover:bg-red-700"
               >
-                <FaSignOutAlt size={20} />
+                <FaPowerOff size={20} />
                 <span>Logout</span>
               </button>
             </li>
