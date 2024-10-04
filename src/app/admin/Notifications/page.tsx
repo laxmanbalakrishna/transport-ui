@@ -164,4 +164,4 @@ const Notifications: React.FC<NotificationsProps> = ({ token }) => {
   );
 };
 
-export default withAuth(Notifications);
+export default withAuth(Notifications, ["admin"]);

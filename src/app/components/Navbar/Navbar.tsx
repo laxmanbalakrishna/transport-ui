@@ -104,9 +104,9 @@ export default function NavBar() {
           Contact Us
         </Link>
 
-        {/* Notification Bell Icon */}
-        {isLoggedIn && (
-          <Notifications token={localStorage.getItem("token") || ""} /> // Pass an empty string if token is null
+        {/* Show Notifications Bell only for admin user */}
+        {isLoggedIn && userType === "Admin" && (
+          <Notifications token={localStorage.getItem("token") || ""} />
         )}
 
         {!isLoggedIn ? (
