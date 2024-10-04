@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { baseUrl } from "@/app/utils";
 
-const OtpSendPage = () => {
+const OtpSendPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -72,6 +72,14 @@ const OtpSendPage = () => {
         {loading && <p>Sending OTP to {contactNumber}...</p>}
       </div>
     </div>
+  );
+};
+
+const OtpSendPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OtpSendPageContent />
+    </Suspense>
   );
 };
 

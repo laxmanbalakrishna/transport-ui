@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect, FormEvent, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { baseUrl } from "@/app/utils";
 
-const OtpVerifyPage = () => {
+const OtpVerifyPageContent = () => {
   const [otp, setOtp] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -116,6 +116,14 @@ const OtpVerifyPage = () => {
         </form>
       </div>
     </div>
+  );
+};
+
+const OtpVerifyPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OtpVerifyPageContent />
+    </Suspense>
   );
 };
 

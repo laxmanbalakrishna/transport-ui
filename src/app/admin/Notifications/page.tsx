@@ -169,11 +169,24 @@
 // src/app/admin/Notifications/page.tsx
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Notifications from "@/app/components/Notifications/Notifications";
 
 const NotificationsPage = () => {
-  // You can get the token from wherever it's stored, like localStorage or from context
-  const token = localStorage.getItem("token") || "";
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if the window is available, meaning we're in the browser
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []); // Only runs in the browser after the component mounts
+
+  if (!token) {
+    return <div>Loading...</div>; // Or show a fallback UI
+  }
+
   return <Notifications token={token} />;
 };
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -7,7 +7,7 @@ import { baseUrl } from "@/app/utils";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-const OtpLoginPage = () => {
+const OtpLoginPageContent = () => {
   const [contactNumber, setContactNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -96,6 +96,14 @@ const OtpLoginPage = () => {
         </form>
       </div>
     </div>
+  );
+};
+
+const OtpLoginPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OtpLoginPageContent />
+    </Suspense>
   );
 };
 
