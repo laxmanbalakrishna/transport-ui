@@ -9,7 +9,8 @@ import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
 import withAuth from "@/app/components/WithAuth/WithAuth";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_ROOT_URL || "";
+import { baseUrl } from "@/app/utils";
+// const baseUrl = process.env.NEXT_PUBLIC_BACKEND_ROOT_URL || "";
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState("");
