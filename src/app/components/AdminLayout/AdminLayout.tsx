@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import BranchCreationModal from "@/app/admin/branch/page";
+import BranchCreationModal from "@/app/components/BranchCreationModal/BranchCreationModal";
 import withAuth from "../WithAuth/WithAuth";
 import { HandleLogout } from "@/app/utils/authUtils";
 import {
