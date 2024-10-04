@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { handleErrors } from "@/app/utils/handleErrors";
-import BranchCreationModal from "@/app/admin/branch/page";
+import BranchCreationModal from "@/app/components/BranchCreationModal/BranchCreationModal";
 import AdminLayout from "@/app/components/AdminLayout/AdminLayout";
 import withAuth from "@/app/components/WithAuth/WithAuth";
 import PhoneInput from "react-phone-input-2";
