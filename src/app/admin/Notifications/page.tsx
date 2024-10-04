@@ -14,7 +14,7 @@ interface Notification {
 }
 
 interface NotificationsProps {
-  token: string | null; // Passing token from NavBar
+  token: string; // Passing token from NavBar
 }
 
 const Notifications: React.FC<NotificationsProps> = ({ token }) => {
@@ -24,6 +24,7 @@ const Notifications: React.FC<NotificationsProps> = ({ token }) => {
   const notificationsRef = useRef<HTMLDivElement>(null);
 
   const fetchNotifications = async () => {
+    if (!token) return; // Prevent API call if token is missing
     try {
       const response = await axios.get(`${baseUrl}/admin-notifications/`, {
         headers: {
@@ -163,4 +164,4 @@ const Notifications: React.FC<NotificationsProps> = ({ token }) => {
   );
 };
 
-export default Notifications;
+export default withAuth(Notifications);
