@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { HandleLogout } from "@/app/utils/authUtils";
-import Notifications from "@/app/admin/Notifications/page";
+import Notifications from "@/app/components/Notifications/Notifications";
 import { FaUser, FaHome, FaSignOutAlt } from "react-icons/fa";
 
 export default function NavBar() {
