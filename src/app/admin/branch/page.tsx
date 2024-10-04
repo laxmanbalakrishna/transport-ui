@@ -8,11 +8,11 @@ import { baseUrl } from "@/app/utils";
 import { handleErrors } from "@/app/utils/handleErrors";
 import withAuth from "@/app/components/WithAuth/WithAuth";
 
-interface BranchCreationModalProps {
-  onClose: () => void;
-}
+// interface BranchCreationModalProps {
+//   onClose: () => void;
+// }
 
-const BranchCreationModal: React.FC<BranchCreationModalProps> = ({
+const BranchCreationModal: React.FC<{ onClose: () => void }> = ({
   onClose,
 }) => {
   // const BranchCreationModal = ({ onClose }: { onClose: () => void }) => {
@@ -102,6 +102,7 @@ const BranchCreationModal: React.FC<BranchCreationModalProps> = ({
   );
 };
 
-export default withAuth<BranchCreationModalProps>(BranchCreationModal, [
-  "admin",
-]);
+// Export your component wrapped with the HOC
+export default withAuth(BranchCreationModal, ["admin"]) as React.FC<{
+  onClose: () => void;
+}>;
