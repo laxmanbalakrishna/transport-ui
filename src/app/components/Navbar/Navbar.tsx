@@ -106,7 +106,7 @@ export default function NavBar() {
 
         {/* Notification Bell Icon */}
         {isLoggedIn && (
-          <Notifications token={localStorage.getItem("token")} /> // Use the Notifications component here
+          <Notifications token={localStorage.getItem("token") || ""} /> // Pass an empty string if token is null
         )}
 
         {!isLoggedIn ? (
