@@ -268,7 +268,8 @@ const ManagerPage = () => {
             onClose={closeEditModal}
             manager={selectedManager}
             baseUrl={
-              process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"
+              process.env.NEXT_PUBLIC_BACKEND_ROOT_URL ||
+              "http://localhost:8000"
             } // Fallback to a default value
             onUpdate={handleUpdateAndRefresh} // Pass refresh callback to modal
           />
