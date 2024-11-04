@@ -60,9 +60,10 @@ export const HandleLogout = async (router: any) => {
   try {
     const token = localStorage.getItem("token");
     const userType = localStorage.getItem("user_type");
+    const userName = localStorage.getItem("username");
 
-    if (!token || !userType) {
-      throw new Error("User type or token not found");
+    if (!token || !userType || !userName) {
+      throw new Error("User type or token or username not found");
     }
 
     // Determine the API endpoint based on user type

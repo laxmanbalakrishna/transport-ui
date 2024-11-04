@@ -20,10 +20,13 @@ import {
   FaPowerOff,
 } from "react-icons/fa";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
+import { logout } from "@/app/reduxToolKit/auth/authSlice";
+import { useAppDispatch } from "@/app/reduxToolKit/store";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
 
   // State to track login status
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -35,53 +38,66 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const closeModal = () => setIsModalOpen(false);
 
   // Check login status and fetch the username from local storage
-  const checkAuthStatus = () => {
-    const token = localStorage.getItem("token");
-    const storedUsername = localStorage.getItem("username");
+  // const checkAuthStatus = () => {
+  //   const token = localStorage.getItem("token");
+  //   const storedUsername = localStorage.getItem("username");
 
-    // If token exists, user is logged in
-    if (token) {
-      setIsLoggedIn(true);
-      setUsername(storedUsername);
-    } else {
-      setIsLoggedIn(false);
-      setUsername(null);
-    }
-  };
+  //   // If token exists, user is logged in
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //     setUsername(storedUsername);
+  //   } else {
+  //     setIsLoggedIn(false);
+  //     setUsername(null);
+  //   }
+  // };
 
-  useEffect(() => {
-    // Check auth status on component mount
-    checkAuthStatus();
+  // useEffect(() => {
+  //   // Check auth status on component mount
+  //   checkAuthStatus();
 
-    // Listen for storage changes to detect logout across tabs
-    const handleStorageChange = () => {
-      checkAuthStatus();
-    };
-    window.addEventListener("storage", handleStorageChange);
+  //   // Listen for storage changes to detect logout across tabs
+  //   const handleStorageChange = () => {
+  //     checkAuthStatus();
+  //   };
+  //   window.addEventListener("storage", handleStorageChange);
 
-    // Clean up event listener on unmount
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []); // This runs once on component mount
+  //   // Clean up event listener on unmount
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []); // This runs once on component mount
+
+  // const handleLogout = async () => {
+  //   await HandleLogout(router);
+
+  //   // Clear localStorage and update state immediately
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user_type");
+  //   localStorage.removeItem("username");
+
+  //   // Update state to reflect logged out status
+  //   setIsLoggedIn(false);
+  //   setUsername(null);
+
+  //   // Trigger storage event manually to notify other tabs or components
+  //   window.dispatchEvent(new Event("storage"));
+
+  //   // Redirect to login page after logout
+  //   router.push("/login");
+  // };
 
   const handleLogout = async () => {
-    await HandleLogout(router);
+    try {
+      await dispatch(logout()).unwrap();
 
-    // Clear localStorage and update state immediately
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_type");
-    localStorage.removeItem("username");
+      // Trigger localStorage event to rerender NavBar
+      window.dispatchEvent(new Event("storage"));
 
-    // Update state to reflect logged out status
-    setIsLoggedIn(false);
-    setUsername(null);
-
-    // Trigger storage event manually to notify other tabs or components
-    window.dispatchEvent(new Event("storage"));
-
-    // Redirect to login page after logout
-    router.push("/login");
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   // Function to check if the link is active

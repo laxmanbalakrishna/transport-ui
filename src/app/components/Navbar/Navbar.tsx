@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { HandleLogout } from "@/app/utils/authUtils";
 import Notifications from "@/app/components/Notifications/Notifications";
 import { FaUser, FaHome, FaSignOutAlt } from "react-icons/fa";
+import { logout } from "@/app/reduxToolKit/auth/authSlice";
+import { useAppDispatch } from "@/app/reduxToolKit/store";
 
 export default function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,6 +17,7 @@ export default function NavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For dropdown visibility
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   // Function to update login state from localStorage
   const updateLoginState = () => {
@@ -57,17 +60,30 @@ export default function NavBar() {
     };
   }, []);
 
+  // const handleLogout = async () => {
+  //   await HandleLogout(router);
+
+  //   // Clear localStorage and update state immediately
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user_type");
+  //   localStorage.removeItem("username");
+  //   setIsLoggedIn(false);
+
+  //   // Redirect to login page after logout
+  //   router.push("/login");
+  // };
+
   const handleLogout = async () => {
-    await HandleLogout(router);
+    try {
+      await dispatch(logout()).unwrap();
 
-    // Clear localStorage and update state immediately
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_type");
-    localStorage.removeItem("username");
-    setIsLoggedIn(false);
+      // Trigger localStorage event to rerender NavBar
+      window.dispatchEvent(new Event("storage"));
 
-    // Redirect to login page after logout
-    router.push("/login");
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const toggleDropdown = () => {
